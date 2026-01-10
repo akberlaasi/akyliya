@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Form {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  phone       String?
+  message     String
+  page_source String?
+  createdAt   DateTime @default(now())
+}
+
+model Blog {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  content         String   // Rich text content
+  tags            String[] // Array of strings
+  featured_image  String?
+  seo_title       String?
+  seo_description String?
+  status          String   @default("draft") // draft, publish
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Service {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  description     String
+  features        Json?    // JSON field for features list
+  service_image   String?
+  seo_title       String?
+  seo_description String?
+  status          String   @default("active")
+  order           Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
