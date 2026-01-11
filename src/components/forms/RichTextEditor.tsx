@@ -6,7 +6,7 @@ import 'react-quill/dist/quill.snow.css';
 // Dynamically import ReactQuill to avoid SSR issues
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
-interface RichTextEditorProps {
+export interface RichTextEditorProps {
   value: string;
   onChange: (value: string) => void;
   label?: string;
@@ -33,7 +33,7 @@ export default function RichTextEditor({ value, onChange, label = "Content" }: R
   return (
     <div className="space-y-2">
       <label className="block text-sm font-medium text-gray-700">{label}</label>
-      <div className="bg-white">
+      <div className="bg-white text-gray-900">
         <ReactQuill
           theme="snow"
           value={value}
