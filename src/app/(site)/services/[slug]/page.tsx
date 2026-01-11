@@ -28,7 +28,7 @@ export async function generateMetadata(
 
   return {
     title: service.seo_title || service.title,
-    description: service.seo_description || `Learn about our ${service.title} service.`,
+    description: service.seo_desc || `Learn about our ${service.title} service.`,
   };
 }
 

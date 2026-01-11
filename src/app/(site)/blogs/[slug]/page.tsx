@@ -27,10 +27,10 @@ export async function generateMetadata(
 
   return {
     title: blog.seo_title || blog.title,
-    description: blog.seo_description || `Read about ${blog.title}`,
+    description: blog.seo_desc || `Read about ${blog.title}`,
     openGraph: {
         title: blog.seo_title || blog.title,
-        description: blog.seo_description || `Read about ${blog.title}`,
+        description: blog.seo_desc || `Read about ${blog.title}`,
         type: 'article',
         publishedTime: blog.createdAt.toISOString(),
         authors: ['Akyliya Team'], 

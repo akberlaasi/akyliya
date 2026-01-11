@@ -47,7 +47,7 @@ export default async function BlogPage() {
                       <p className="mt-3 text-base text-gray-500 line-clamp-3">
                          {/* Simple truncation for preview if description is missing. 
                              Ideally, use a summary field or strip HTML from content */}
-                        {blog.seo_description || "Read more about this topic..."}
+                        {blog.seo_desc || "Read more about this topic..."}
                       </p>
                     </Link>
                   </div>
