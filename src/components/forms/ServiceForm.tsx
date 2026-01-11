@@ -1,13 +1,15 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import { createService, ServiceState } from '@/actions/service';
 import clsx from 'clsx';
 import Link from 'next/link';
+import ImageUploader from './ImageUploader';
 
 export default function ServiceForm() {
   const initialState: ServiceState = { message: '', errors: {} };
   const [state, formAction, isPending] = useActionState(createService, initialState);
+  const [featureImage, setFeatureImage] = useState('');
 
   return (
     <form action={formAction} className="space-y-8 divide-y divide-gray-200">
@@ -84,6 +86,18 @@ export default function ServiceForm() {
               </div>
             </div>
 
+            {/* Feature Image */}
+            <div className="sm:col-span-6">
+               <input type="hidden" name="feature_image_url" value={featureImage} />
+               <ImageUploader 
+                 onImageUpload={setFeatureImage} 
+                 label="Feature Image"
+               />
+               {state.errors?.feature_image_url && (
+                <p className="mt-2 text-sm text-red-600">{state.errors.feature_image_url.join(', ')}</p>
+              )}
+            </div>
+
             {/* Description */}
             <div className="sm:col-span-6">
               <label htmlFor="description" className="block text-sm font-medium text-gray-700">
@@ -138,13 +152,13 @@ export default function ServiceForm() {
             </div>
 
             <div className="sm:col-span-6">
-              <label htmlFor="seo_description" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="seo_desc" className="block text-sm font-medium text-gray-700">
                 SEO Description
               </label>
               <div className="mt-1">
                 <textarea
-                  id="seo_description"
-                  name="seo_description"
+                  id="seo_desc"
+                  name="seo_desc"
                   rows={3}
                   className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
                 />

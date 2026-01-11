@@ -10,8 +10,9 @@ const BlogSchema = z.object({
   slug: z.string().min(3, { message: 'Slug must be at least 3 characters.' })
          .regex(/^[a-z0-9-]+$/, { message: 'Slug can only contain lowercase letters, numbers, and dashes.' }),
   content: z.string().min(10, { message: 'Content must be at least 10 characters.' }),
+  feature_image_url: z.string().optional(),
   seo_title: z.string().optional(),
-  seo_description: z.string().optional(),
+  seo_desc: z.string().optional(),
   status: z.enum(['draft', 'publish']),
   tags: z.string().optional(), // We'll parse this from a comma-separated string
 });
@@ -21,8 +22,9 @@ export type BlogState = {
     title?: string[];
     slug?: string[];
     content?: string[];
+    feature_image_url?: string[];
     seo_title?: string[];
-    seo_description?: string[];
+    seo_desc?: string[];
     status?: string[];
     tags?: string[];
   };
@@ -34,8 +36,9 @@ export async function createBlog(prevState: BlogState, formData: FormData) {
     title: formData.get('title'),
     slug: formData.get('slug'),
     content: formData.get('content'),
+    feature_image_url: formData.get('feature_image_url'),
     seo_title: formData.get('seo_title'),
-    seo_description: formData.get('seo_description'),
+    seo_desc: formData.get('seo_desc'),
     status: formData.get('status'),
     tags: formData.get('tags'),
   });
@@ -47,7 +50,7 @@ export async function createBlog(prevState: BlogState, formData: FormData) {
     };
   }
 
-  const { title, slug, content, seo_title, seo_description, status, tags } = validatedFields.data;
+  const { title, slug, content, feature_image_url, seo_title, seo_desc, status, tags } = validatedFields.data;
   
   const tagsArray = tags ? tags.split(',').map(tag => tag.trim()).filter(tag => tag !== '') : [];
 
@@ -57,8 +60,9 @@ export async function createBlog(prevState: BlogState, formData: FormData) {
         title,
         slug,
         content,
+        feature_image_url,
         seo_title,
-        seo_description,
+        seo_desc,
         status,
         tags: tagsArray,
       },
